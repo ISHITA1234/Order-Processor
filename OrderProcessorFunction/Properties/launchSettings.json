@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "OrderProcessorFunction": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7286",
+      "launchBrowser": false
+    }
+  }
+}
