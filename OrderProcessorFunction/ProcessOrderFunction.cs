@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
 namespace OrderProcessorFunction
@@ -8,9 +7,32 @@ namespace OrderProcessorFunction
     public class ProcessOrderFunction
     {
         [FunctionName("ProcessOrderFunction")]
-        public void Run([ServiceBusTrigger("order-queue", Connection = "ServiceBusConnection")]string myQueueItem, ILogger log)
+        public void Run(
+            [ServiceBusTrigger("order-queue", Connection = "ServiceBusConnection")] string myQueueItem,
+            ILogger log)
         {
-            log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
+            log.LogInformation($"RAW MESSAGE: {myQueueItem}");
+
+            // Retry and DLQ(Dead Letter Queue)
+            try
+            {
+                if (myQueueItem.ToLower().Contains("\"product\":\"fail\""))
+                // sample json in post for failure
+                // {
+                //   "product": "fail",
+                //   "amount": 100
+                // }
+                {
+                    throw new Exception("Simulated failure ❌");
+                }
+
+                log.LogInformation("Processing successful ✅");
+            }
+            catch (Exception ex)
+            {
+                log.LogError(ex, "Processing failed ❌");
+                throw;
+            }
         }
     }
 }

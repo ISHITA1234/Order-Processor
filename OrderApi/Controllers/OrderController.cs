@@ -34,7 +34,11 @@ public class OrderController : ControllerBase
         Console.WriteLine($"ID VALUE: {order.Id}");
 
         await _db.SaveOrderAsync(order);
-        await _publisher.PublishAsync(order.OrderId);
+        // await _publisher.PublishAsync(order.OrderId);// api response - sends order id
+
+        // instead send order id as well as product and amount as response
+        await _publisher.PublishAsync(
+        System.Text.Json.JsonSerializer.Serialize(order));
 
         return Ok(order.OrderId);
     }
