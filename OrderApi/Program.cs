@@ -6,13 +6,13 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adding Azure key vault
-// var keyVaultUrl = new Uri("https://order-keyvault.vault.azure.net/");
+// Adding Azure key vault (keay vault name is order-keyvault1)
+var keyVaultUrl = new Uri("https://order-keyvault1.vault.azure.net/");
 
-// builder.Configuration.AddAzureKeyVault(
-//     keyVaultUrl,
-//     new DefaultAzureCredential()
-// );
+builder.Configuration.AddAzureKeyVault(
+    keyVaultUrl,
+    new DefaultAzureCredential()
+);
 
 // Add services
 builder.Services.AddControllers();
