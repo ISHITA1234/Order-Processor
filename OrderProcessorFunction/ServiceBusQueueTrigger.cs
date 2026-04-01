@@ -1,16 +1,16 @@
-using System;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
+// using System;
+// using Microsoft.Azure.WebJobs;
+// using Microsoft.Azure.WebJobs.Host;
+// using Microsoft.Extensions.Logging;
 
-namespace OrderProcessorFunction
-{
-    public class ServiceBusQueueTrigger
-    {
-        [FunctionName("ServiceBusQueueTrigger")]
-        public void Run([ServiceBusTrigger("order-queue", Connection = "ServiceBusConnection")]string myQueueItem, ILogger log)
-        {
-            log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
-        }
-    }
-}
+// namespace OrderProcessorFunction
+// {
+//     public class ServiceBusQueueTrigger
+//     {
+//         [FunctionName("ServiceBusQueueTrigger")]
+//         public void Run([ServiceBusTrigger("order-queue", Connection = "ServiceBusConnection")]string myQueueItem, ILogger log)
+//         {
+//             log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
+//         }
+//     }
+// }
