@@ -10,8 +10,11 @@ public class ServiceBusPublisher : IMessagePublisher
 
     public ServiceBusPublisher(IConfiguration config)
     {
-        var client = new ServiceBusClient(config["ServiceBus:ConnectionString"]);
-        _sender = client.CreateSender(config["ServiceBus:QueueName"]);
+        var connectionString = config["ServiceBusConnection"];
+        var queueName = config["ServiceBusQueueName"];
+
+        var client = new ServiceBusClient(connectionString);
+        _sender = client.CreateSender(queueName);
     }
 
     public async Task PublishAsync(string message)
